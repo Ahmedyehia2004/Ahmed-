@@ -1,9 +1,7 @@
-// إضافة مستمع لحدث الـ fetch
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
 });
 
-// دالة التعامل مع الطلبات
 async function handleRequest(request) {
   try {
     // استخراج الـ target من الرابط
@@ -52,7 +50,7 @@ async function handleRequest(request) {
       'User-Agent':
         request.headers.get('User-Agent') ||
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      'Accept': request.headers.get('Accept') || '*/*',
+      'Accept': '*/*',
       'Accept-Encoding': 'gzip, deflate, br',
       'Connection': 'keep-alive',
       'X-Proxy-Source': 'super-proxy-ahmed',
@@ -70,7 +68,7 @@ async function handleRequest(request) {
       },
     };
 
-    // تنفيذ الطلب مع Streaming متقدم
+    // تنفيذ الطلب مع Streaming
     const response = await fetch(target, fetchOptions);
 
     // التحقق من حالة الرد
@@ -91,12 +89,11 @@ async function handleRequest(request) {
       );
     }
 
-    // إعدادات الرد مع Streaming
+    // إعدادات الـ Streaming
     const { readable, writable } = new TransformStream({
       highWaterMark: 1024 * 1024 * 10, // 10 ميجا بافر
     });
 
-    // نقل البيانات مع ضغط إذا لزم الأمر
     response.body.pipeTo(writable).catch(err => {
       console.error('Stream error:', err);
     });
