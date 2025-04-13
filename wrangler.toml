@@ -1,0 +1,15 @@
+name = "super-proxy-ahmed"
+compatibility_date = "2025-04-13"
+main = "worker.js"
+
+# إعدادات إضافية للأمان والأداء
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+# حدود الاستخدام
+[limits]
+cpu_ms = 1000 # زيادة وقت المعالجة لتحميل ملفات كبيرة
+
+# إعدادات اختيارية لتوزيع الترافيك
+[placement]
+mode = "smart"
